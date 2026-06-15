@@ -20,7 +20,6 @@ class Conta(models.Model):
 class Pessoa(models.Model):
     nome = models.CharField(max_length=200)
     cpf = models.CharField(max_length=14, unique=True)
-    # Permite criar Pessoa/Aluno/Professor sem precisar de uma conta atrelada na mesma hora
     conta = models.OneToOneField(Conta, on_delete=models.CASCADE, null=True, blank=True)
 
     class Meta:
@@ -61,7 +60,7 @@ class Quests(models.Model):
     alternativa_b = models.CharField(max_length=255, default="")
     alternativa_c = models.CharField(max_length=255, default="")
     alternativa_d = models.CharField(max_length=255, default="")
-    resposta_correta = models.CharField(max_length=1) # Vai guardar só a letra correta
+    resposta_correta = models.CharField(max_length=1) 
     disciplina = models.ForeignKey(Disciplina, on_delete=models.CASCADE)
 
     class Meta:
