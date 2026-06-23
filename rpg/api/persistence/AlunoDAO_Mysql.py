@@ -1,5 +1,5 @@
 from api.models import Aluno as AlunoModel
-
+from django.db import connection
 class AlunoDAOMysql:
     def salvar(self, a):
         model = AlunoModel(
@@ -46,4 +46,21 @@ class AlunoDAOMysql:
         m = AlunoModel.objects.get(id=a.getIdPessoa())
    
         return list(m.itens.all().values())
+    def consultar_usuario_a(self):
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT id, pessoa_ptr_id, nome, classe, nivel, moedas FROM UsuarioA")
+            colunas = [col[0] for col in cursor.description]
+            return [dict(zip(colunas, linha)) for linha in cursor.fetchall()]
+
+    def consultar_turma(self):
+        with connection.cursor() as cursor:
+            cursor.execute('SELECT id, pessoa_ptr_id, Disciplina, nome, moedas FROM Turma')
+            colunas = [col[0] for col in cursor.description]
+            return [dict(zip(colunas, linha)) for linha in cursor.fetchall()]
+
+    def obter_media_moedas(self, disciplina_id):
+        with connection.cursor() as cursor:
+            cursor.execute("SELECT media_moeda(%s)", [disciplina_id])
+            resultado = cursor.fetchone()
+            return float(resultado[0]) if resultado and resultado[0] is not None else 0.0
         

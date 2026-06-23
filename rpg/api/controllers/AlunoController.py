@@ -142,3 +142,23 @@ class AlunoControllerImpl(IAlunoController):
                 }, 
                 "status": 500
             }
+    def relatorio_usuario_a(self, request):
+        try:
+            dados = self._aluno_dao.consultar_usuario_a()
+            return {"data": dados, "status": 200}
+        except Exception as e:
+            return {"data": {"erro": f"Erro ao ler View UsuarioA: {str(e)}"}, "status": 500}
+
+    def relatorio_turma(self, request):
+        try:
+            dados = self._aluno_dao.consultar_turma()
+            return {"data": dados, "status": 200}
+        except Exception as e:
+            return {"data": {"erro": f"Erro ao ler View Turma: {str(e)}"}, "status": 500}
+
+    def calcular_media_disciplina(self, request, disciplina_id):
+        try:
+            media = self._aluno_dao.obter_media_moedas(disciplina_id)
+            return {"data": {"disciplina_id": disciplina_id, "media_moedas": media}, "status": 200}
+        except Exception as e:
+            return {"data": {"erro": f"Erro ao executar function media_moeda: {str(e)}"}, "status": 500}    

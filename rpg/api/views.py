@@ -264,3 +264,37 @@ def item_detail(request, pk):
     elif request.method == 'DELETE': res = ctrl.deletar(request, pk)
     else: res = ctrl.consultarbyId(request, pk)
     return JsonResponse(res['data'], status=res['status'], safe=False)
+
+
+    # ==========================================
+# 9. RELATÓRIOS E RECURSOS AVANÇADOS (VIEWS & FUNCTIONS DO BANCO)
+# ==========================================
+
+@extend_schema(summary="Visualizar Relatório de Usuários (Classe e Moedas)", tags=['Relatórios Avançados'])
+@api_view(['GET'])
+@csrf_exempt
+def relatorio_usuarios_a(request):
+    dao = inject('IAlunoDAO')
+    ctrl = inject('IAlunoController', dao_instance=dao)
+    res = ctrl.relatorio_usuario_a(request)
+    return JsonResponse(res['data'], status=res['status'], safe=False)
+
+
+@extend_schema(summary="Visualizar Relatório de Turmas e Alunos", tags=['Relatórios Avançados'])
+@api_view(['GET'])
+@csrf_exempt
+def relatorio_turmas(request):
+    dao = inject('IAlunoDAO')
+    ctrl = inject('IAlunoController', dao_instance=dao)
+    res = ctrl.relatorio_turma(request)
+    return JsonResponse(res['data'], status=res['status'], safe=False)
+
+
+@extend_schema(summary="Calcular Média de Moedas de uma Disciplina (Função SQL)", tags=['Relatórios Avançados'])
+@api_view(['GET'])
+@csrf_exempt
+def media_moedas_disciplina(request, pk):
+    dao = inject('IAlunoDAO')
+    ctrl = inject('IAlunoController', dao_instance=dao)
+    res = ctrl.calcular_media_disciplina(request, pk)
+    return JsonResponse(res['data'], status=res['status'])

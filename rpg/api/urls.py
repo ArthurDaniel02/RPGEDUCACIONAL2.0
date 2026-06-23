@@ -40,4 +40,9 @@ urlpatterns = [
     # 8. ITEM
     path('item/', views.item_list, name='item_list'),
     path('item/<int:pk>/', views.item_detail, name='item_detail'),
+
+    path('relatorios/usuarios-a/', views.relatorio_usuarios_a, name='relatorio_usuarios_a'),
+    path('relatorios/turmas/', views.relatorio_turmas, name='relatorio_turmas'),
+    path('disciplina/<int:pk>/media-moedas/', views.media_moedas_disciplina, name='media_moedas_disciplina'),
+
 ]

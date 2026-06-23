@@ -20,3 +20,14 @@ class IAlunoDAO(ABC):
     @abstractmethod
     def consultarbyId(self, obj):
         pass
+    @abstractmethod
+    def consultar_usuario_a(self):
+        pass
+
+    @abstractmethod
+    def consultar_turma(self):
+        pass
+
+    @abstractmethod
+    def obter_media_moedas(self, disciplina_id):
+        pass
